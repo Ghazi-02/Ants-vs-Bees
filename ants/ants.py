@@ -26,11 +26,9 @@ class Place:
         self.entrance = None  # A Place
         # Phase 1: Add an entrance to the exit
         # BEGIN Problem 2
-        print("DEBUG:",self.exit,self.entrance)
         if self.exit != None:
             self.exit.entrance = self
-        
-
+    
         # END Problem 2
 
     def add_insect(self, insect):
@@ -182,16 +180,61 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     food_cost = 3
+    lower_bound = 0 
+    upper_bound = float("inf")
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
 
-    def nearest_bee(self):
+    def nearest_bee(self,lower_bound=0,upper_bound=0):
         """Return the nearest Bee in a Place that is not the HIVE, connected to
         the ThrowerAnt's Place by following entrances.
 
         This method returns None if there is no such Bee (or none in range).
         """
         # BEGIN Problem 3 and 4
-        return random_bee(self.place.bees)  # REPLACE THIS LINE
+        currentPlace = self.place
+        #maximum == upperbound for shortThrower
+        #minimum == lowerbound for longThrower
+        count = 0
+        """if lower_bound == 0 and upper_bound == 0:    
+            while currentPlace.is_hive != True:
+                if currentPlace.bees == []:
+                    currentPlace = currentPlace.entrance
+                else:
+                    return random_bee(currentPlace.bees) 
+        elif upper_bound > 0:
+            while count <= upper_bound:
+                if currentPlace.bees == []:
+                    currentPlace = currentPlace.entrance
+                    count = count + 1               
+                else:
+                    return random_bee(currentPlace.bees) 
+        elif lower_bound > 0:
+            while count < lower_bound and currentPlace.is_hive != True:
+                currentPlace = currentPlace.entrance
+                count = count + 1               
+            if count == lower_bound:
+                while currentPlace.is_hive != True:
+                    if currentPlace.bees == []:
+                            currentPlace = currentPlace.entrance
+                    else:
+                        return random_bee(currentPlace.bees) 
+        # Logic fail
+        """
+                           
+        while count < self.lower_bound and currentPlace.entrance == True:
+            currentPlace = currentPlace.entrance
+            count = count + 1
+        while self.lower_bound <= count <= self.upper_bound:
+            if currentPlace.is_hive:
+                return None
+            elif currentPlace.entrance == None:
+                return None
+            else:
+                if currentPlace.bees:
+                    return random_bee(currentPlace.bees)
+                currentPlace = currentPlace.entrance
+                count =count+ 1
+
         # END Problem 3 and 4
 
     def throw_at(self, target):
@@ -222,7 +265,10 @@ class ShortThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True
+    lower_bound = 0
+    upper_bound = 3
+
     # END Problem 4
 
 
@@ -233,7 +279,10 @@ class LongThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    lower_bound = 5
+    upper_bound = float('inf')
+
     # END Problem 4
 
 
