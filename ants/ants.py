@@ -26,7 +26,11 @@ class Place:
         self.entrance = None  # A Place
         # Phase 1: Add an entrance to the exit
         # BEGIN Problem 2
-        "*** YOUR CODE HERE ***"
+        print("DEBUG:",self.exit,self.entrance)
+        if self.exit != None:
+            self.exit.entrance = self
+        
+
         # END Problem 2
 
     def add_insect(self, insect):
