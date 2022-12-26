@@ -292,9 +292,10 @@ class FireAnt(Ant):
     name = 'Fire'
     damage = 3
     food_cost = 5
+    
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False   # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
     # END Problem 5
 
     def __init__(self, health=3):
@@ -309,8 +310,25 @@ class FireAnt(Ant):
         the additional damage if the fire ant dies.
         """
         # BEGIN Problem 5
-        "*** YOUR CODE HERE ***"
-        # END Problem 5
+
+        # BEGIN Problem 5
+        lst = self.place.bees 
+        
+        print("DEBUG:",lst)
+        
+       
+         
+        for x in lst[:]:
+                print("DEBUG:",lst)
+                x.reduce_health(amount)
+        if self.health - amount <= 0:    
+            for x in lst[:]:
+                print("DEBUG:",lst)
+                x.reduce_health(self.damage)
+        super().reduce_health(amount)
+        
+       
+    
 
 # BEGIN Problem 6
 # The WallAnt class
